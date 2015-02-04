@@ -12,7 +12,7 @@ But *Star rating* and *review* are might be the most poular references and this 
  
 In addition, one of the well-knwon movie recommendation service, [WATCHA](https://watcha.net/), uses star rating for its core system.
 
-<img src="https://raw.githubusercontent.com/carpedm20/critic-of-critics/master/contents/watcha.png" alt="alt_tag" style="max-width:70%;">
+<img src="https://raw.githubusercontent.com/carpedm20/critic-of-critics/master/contents/watcha.png" width="70%">
 
 Anyone can post star rating and reviews online but we usually classify it based on who made it, an ordinary user, or a critic. By the definition, a critic is a person who is professional at an area and his or her publish an opinion and assessments of various forms of creative work such as movie. Critical judgments, whether derived from critical thinking or not, may be positive, negative, or balanced, weighing a combination of factors. (based on [Wikipedia](http://en.wikipedia.org/wiki/Critic))
 
