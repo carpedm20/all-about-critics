@@ -39,7 +39,9 @@ Recently, however, lots of questions are made by lots of movie fans that "Are re
  ![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/question2.png)
 
 
-This question makes me to compare the patterns of star ratings between users and critics. I improved this analsis by comparing critics of Korean and other countries. You can conceived of the result as a proof whether skepticism about the quality of critics is right or not.
+This is where I started this project. As a movie fan, I statistically compared the patterns of star ratings from ordinary users and critics. To generalized the analysis, I comapred critics of Korean with [Metacritic](http://www.metacritic.com/) and [Rotten Tomatoes](http://www.rottentomatoes.com/). The result can be conceived as a proof whether skepticism about the quality of critics is right or not.
+
+Now, enjoy yourself :)
 
 
 Acknowledgement
