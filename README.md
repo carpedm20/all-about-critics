@@ -1,7 +1,7 @@
-Critic of critics
+All about critics
 =================
 
-A Data Visualization of movie critics.
+A Data Visualization of Korean movie critics.
 
 
 Why?
@@ -11,42 +11,46 @@ Tons of new movies are released every year and the number of accumulated reviews
  
 But **star rating** and **review** are might be the most poular references and this can be proved by looking at information page of [NAVER movie](http://movie.naver.com/), which shows star ratings from audience, critic and user right bellow the title of a movie. 
 
-![alt_tag](https://raw.githubusercontent.com/carpedm20/critic-of-critics/master/contents/naver.png)
+![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/naver.png)
  
 In addition, one of the well-knwon movie recommendation service, [WATCHA](https://watcha.net/), uses star rating for its core system.
 
-<img src="https://raw.githubusercontent.com/carpedm20/critic-of-critics/master/contents/watcha.png" width="70%">
+<img src="https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/watcha.png" width="70%">
 
-Anyone can post star rating and reviews online but we usually classify it based on who made it, an ordinary user, or a critic. By the definition, a critic is a person who is professional at an area and his or her publish an opinion and assessments of various forms of creative work such as movie. Critical judgments, whether derived from critical thinking or not, may be positive, negative, or balanced, weighing a combination of factors. (based on [Wikipedia](http://en.wikipedia.org/wiki/Critic))
+Anyone can post star rating or reviews online and we usually classify them based on who made it, an ordinary user, or a critic. By the definition on [Wikipedia](http://en.wikipedia.org/wiki/Critic), a critic is a person who is professional at an area and his or her publish an opinion and assessments of various forms of creative work such as movie. Critical judgments, whether derived from critical thinking or not, may be positive, negative, or balanced, weighing a combination of factors.
 
-1. A critic from a user
+1. A critic from a user from [here](http://movie.naver.com/movie/bi/mi/point.nhn?code=45290#pointAfterTab)
 
- ![alt_tag](https://raw.githubusercontent.com/carpedm20/critic-of-critics/master/contents/critic_from_user.png)
+ ![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/critic_from_user.png)
 
-2. A critic from a critic
+2. A critic from a critic from [here](http://movie.naver.com/movie/bi/mi/point.nhn?code=45290#pointExpertTab)
 
- ![alt_tag](https://raw.githubusercontent.com/carpedm20/critic-of-critics/master/contents/critic_from_critic.png)
+ ![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/critic_from_critic.png)
 
 Recently, however, lots of questions are made by lots of movie fans that "Are reviews of critics really considerable or not?"
 
-1. A sharp criticism on critics
+1. A sharp criticism on critics from [here](http://movie.naver.com/movie/bi/mi/reviewread.nhn?code=102875&nid=3705815)
 
- ![alt_tag](https://raw.githubusercontent.com/carpedm20/critic-of-critics/master/contents/question1.png)
+ ![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/question1.png)
 
 
-2. A disappointed comment on critics
+2. A disappointed comment on critics from [here](http://movie.naver.com/movie/bi/mi/basic.nhn?code=130013)
 
- ![alt_tag](https://raw.githubusercontent.com/carpedm20/critic-of-critics/master/contents/question2.png)
+ ![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/question2.png)
 
 
 This question makes me to compare the patterns of star ratings between users and critics. I improved this analsis by comparing critics of Korean and other countries. You can conceived of the result as a proof whether skepticism about the quality of critics is right or not.
 
-*There is no negative or positive opinion on any specific critics. Data is just a refinement of numbers, nothing else.*
+
+Acknowledgement
+---------------
+
+There is no negative or positive opinion on any specific critics. Data is just a refinement of numbers, nothing else.
 
 
 Copyright
 ---------
 
-Copyright :copyright: 2015 Kim Tae Hoon.
+Copyright :copyright: 2015 [Kim Tae Hoon](http://carpedm20.github.io/).
 
 The MIT License (MIT)
