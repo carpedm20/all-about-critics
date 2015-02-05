@@ -13,10 +13,9 @@ There mgiht be no doubt that **review** and **star ratings** are two of the most
 
 ![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/naver.png)
  
-In addition, one of the well-knwon movie recommendation service, [Watch](https://watcha.net/), uses star rating for its core recommendation system.
+In addition, one of the well-knwon movie recommendation service, [Watcha](https://watcha.net/), uses star rating for its core recommendation system.
 
 <img src="https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/watcha.png" width="70%">
-v
 
 Anyone can post reviews or make star ratings and we usually classify them based on who made it, an ordinary user, or a critic. By the definition on [Wikipedia](http://en.wikipedia.org/wiki/Critic), a critic is a person who is professional at an area and his or her publish an opinion and assessments of various forms of creative work such as movie. Critical judgments, whether derived from critical thinking or not, may be positive, negative, or balanced, weighing a combination of factors.
 
