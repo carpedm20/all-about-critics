@@ -7,17 +7,18 @@ A Data Visualization of Korean movie critics.
 Why?
 ----
 
-Tons of new movies are released every year and the number of accumulated reviews of movie is increasing. When we are going to choose a movie to watch, there can be diverse refrences or personal preferences such as genre, director or actors.
+Tons of new movies are released every year and the accumulated number of film reviews is increasing. When we are going to choose a movie to watch, we can judge them by diverse preferences such as genre, director or actors.
  
-But **star rating** and **review** are might be the most poular references and this can be proved by looking at information page of [NAVER movie](http://movie.naver.com/), which shows star ratings from audience, critic and user right bellow the title of a movie. 
+There mgiht be no doubt that **review** and **star ratings** are two of the most popular qualites and this can be proved by looking at information page of [NAVER movie](http://movie.naver.com/) that star ratings from real audience, critic and user are located right bellow the title of a movie. 
 
 ![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/naver.png)
  
-In addition, one of the well-knwon movie recommendation service, [WATCHA](https://watcha.net/), uses star rating for its core system.
+In addition, one of the well-knwon movie recommendation service, [Watch](https://watcha.net/), uses star rating for its core recommendation system.
 
 <img src="https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/watcha.png" width="70%">
+v
 
-Anyone can post star rating or reviews online and we usually classify them based on who made it, an ordinary user, or a critic. By the definition on [Wikipedia](http://en.wikipedia.org/wiki/Critic), a critic is a person who is professional at an area and his or her publish an opinion and assessments of various forms of creative work such as movie. Critical judgments, whether derived from critical thinking or not, may be positive, negative, or balanced, weighing a combination of factors.
+Anyone can post reviews or make star ratings and we usually classify them based on who made it, an ordinary user, or a critic. By the definition on [Wikipedia](http://en.wikipedia.org/wiki/Critic), a critic is a person who is professional at an area and his or her publish an opinion and assessments of various forms of creative work such as movie. Critical judgments, whether derived from critical thinking or not, may be positive, negative, or balanced, weighing a combination of factors.
 
 1. A critic from a user from [here](http://movie.naver.com/movie/bi/mi/point.nhn?code=45290#pointAfterTab)
 
