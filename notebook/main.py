@@ -68,3 +68,29 @@ for data in critic_tbl.iterrows():
             
             review = Review(movie, content, rating)
             critic.reviews.append(review)
+
+from time import mktime
+from datetime import datetime
+
+for critic in critics:
+    print "~~~~~~~~~~~~~~~~~~~~"
+    for i in critic.reviews:
+        instance = Movie_DB.query.filter_by(mid=i.movie.mid).first()
+        if instance:
+            pass
+        else:
+            # mid, year, time, director, director_en, naver_mid, imdb_mid):
+            i.movie.get_imdb()
+
+            dt = datetime.fromtimestamp(mktime(i.movie.time))
+
+            print i.movie.naver_mid,i.movie.imdb_mid
+            movie = Movie_DB(i.movie.mid,
+                          i.movie.year,
+                          dt.date(),
+                          i.movie.director,
+                          i.movie.director_en,
+                          i.movie.naver_mid,
+                          i.movie.imdb_mid)
+            db_session.add(movie)
+            db_session.commit()

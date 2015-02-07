@@ -1,3 +1,14 @@
+from difflib import SequenceMatcher as sm
+
+def is_same_name(a,b):
+    for (x,y) in [(a,b),(b,a)]:
+        for word in x.split():
+            if word in y:
+                return True
+    if sm(a=list(set(b)), b=list(set(a))).ratio() > 0.7:
+        return True
+    return False
+
 class Critic(object):
     def __init__(self, name, link):
         self.name = name
@@ -8,13 +19,6 @@ class Critic(object):
         msg = '<Critic %s (%s): %s>' % (self.name, self.link, len(self.reviews))
         return msg.encode('utf8')
     
-def is_same_name(a,b):
-    for (x,y) in [(a,b),(b,a)]:
-        for word in x.split():
-            if word in y:
-                return True
-    return False
-
 class Movie(object):
     def __init__(self, mid, title):
         self.mid = mid
@@ -120,7 +124,10 @@ class Movie(object):
         if not self._title_en or not self._time or not self._year:
             self.get_info()
 
-        movies = imdb.find_by_title(self._title_en)
+        try:
+            movies = imdb.find_by_title(self._title_en)
+        except:
+            movies = imdb.find_by_title(self._title_en.encode('utf-8'))
         ans = None
         
         if len(movies) > 1:
@@ -134,40 +141,53 @@ class Movie(object):
                     if year == self._year or year == self.time.tm_year:
                         candidates.append(movie)
 
-            if candidates != []:
-                for candidate in candidates:
-                    info = imdb.find_movie_by_id(candidate['imdb_id'])
-                    
-                    is_possible = False
-                    for director in info.directors_summary:
-                        if is_same_name(director.name, self._director_en):
-                            self._imdb_candidates.append(candidate)
-                            break
-                
-                if len(self._imdb_candidates) > 1:
-                    raise("Too many candidates : %s" % self._imdb_candidates)
-                    
-                    soup = get_soup("http://www.imdb.com/title/%s/releaseinfo" % candidate['imdb_id'])
-                    for tr in soup.select("#release_dates tr"):
-                        if tr.find("a").text == "South Korea":
-                            pass
-                elif len(self._imdb_candidates) == 0:
-                    self._imdb_mid = -1
-                    return
-                            
+            if len(candidates) == 0:
+                candidates = movies
+
+            for candidate in candidates:
+                info = imdb.find_movie_by_id(candidate['imdb_id'])
+
+                is_possible = False
+                for director in info.directors_summary:
+                    if is_same_name(director.name, self._director_en):
+                        self._imdb_candidates.append(candidate)
+                        break
+
+            if len(self._imdb_candidates) > 1:
                 ans = self._imdb_candidates[0]
-            if not ans:
-                ans = movies[0]
+                max_gap = self.year - int(ans['year'])
+                
+                for candidate in self._imdb_candidates[1:]:
+                    if max_gap > self.year - int(candidate['year']):
+                        ans = candidate
+                
+                self._imdb_mid = ans['imdb_id']
+                return
+            
+                #raise Exception("Too many candidates : %s" % self._imdb_candidates)
+
+                #soup = get_soup("http://www.imdb.com/title/%s/releaseinfo" % candidate['imdb_id'])
+                #for tr in soup.select("#release_dates tr"):
+                #    if tr.find("a").text == "South Korea":
+                #        pass
+                    
+            if len(self._imdb_candidates) == 1:
+                ans = self._imdb_candidates[0]
+            elif len(self._imdb_candidates) == 0:
+                self._imdb_mid = -1
+                return
+            else:
+                raise Exception (" [!] IMDB Movie not found : %s" % len(self._imdb_candidates))
         else:
             ans = movies[0]
         
         if not ans:
-            raise(" [!] IMDB Movie not found")
+            raise Exception (" [!] IMDB Movie not found")
             
         self._imdb_mid = ans['imdb_id']
         
     def __repr__(self):
-        msg = '<Movie %s (%s)>' % (self.title, self.link)
+        msg = '<Movie %s<%s> ( %s )>' % (self.title, self.mid, self.link)
         return msg.encode('utf8')
         
 class Review(object):
@@ -179,3 +199,8 @@ class Review(object):
     def __repr__(self):
         msg = '<Review %s (%s)>' % (self.movie.title, self.rating)
         return msg.encode('utf8')
+
+def find_movie(movies, mid):
+    for movie in movies:
+        if movie.mid == mid:
+            return movie
