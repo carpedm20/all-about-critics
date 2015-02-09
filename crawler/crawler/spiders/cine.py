@@ -2,6 +2,7 @@
 import scrapy
 from scrapy import log
 
+import time
 import re
 import time
 import pickle
@@ -33,7 +34,10 @@ def is_same_name(a,b):
         for word in x.split():
             if word in y:
                 return True
-    if sm(a=list(set(b)), b=list(set(a))).ratio() > 0.7:
+
+    ratio = sm(a=list(set(b)), b=list(set(a))).ratio()
+    if ratio > 0.7:
+        log.msg(" ============> %s : %s = %s" % (a, b, ratio))
         return True
     return False
 
@@ -69,7 +73,7 @@ class CineSpider(scrapy.Spider):
         'http://www.cine21.com/',
     )
 
-    def __init__(self):
+    def __init__(self, start_idx="0"):
         try: 
             with open('critics.pkl','rb') as f:
                 critics = pickle.load(f)
@@ -83,7 +87,8 @@ class CineSpider(scrapy.Spider):
             with open('movies.pkl', 'wb') as f:
                 pickle.dump(movies, f)
 
-        movies = movies[:2]
+        start_idx = int(start_idx)
+        movies = movies[start_idx:start_idx+1000]
 
         for movie in movies:
             movie_dict[movie.mid] = Movie(title=movie.title, mid=movie.mid)
@@ -216,4 +221,5 @@ class CineSpider(scrapy.Spider):
         else:
             movie['imdb_mid'] = ans['imdb_id']
 
+        movie['time'] = time.strftime('%Y-%m-%d', movie['time'])
         yield movie
