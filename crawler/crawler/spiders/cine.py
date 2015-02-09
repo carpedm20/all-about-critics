@@ -73,7 +73,7 @@ class CineSpider(scrapy.Spider):
         'http://www.cine21.com/',
     )
 
-    def __init__(self, start_idx="0"):
+    def __init__(self, sidx="0", eidx="1000"):
         try: 
             with open('critics.pkl','rb') as f:
                 critics = pickle.load(f)
@@ -87,8 +87,8 @@ class CineSpider(scrapy.Spider):
             with open('movies.pkl', 'wb') as f:
                 pickle.dump(movies, f)
 
-        start_idx = int(start_idx)
-        movies = movies[start_idx:start_idx+1000]
+        sidx = int(sidx)
+        movies = movies[sidx:sidx+1000]
 
         for movie in movies:
             movie_dict[movie.mid] = Movie(title=movie.title, mid=movie.mid)

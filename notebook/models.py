@@ -77,23 +77,32 @@ class Movie(object):
         return self._imdb_mid
     
     def get_info(self):
-        soup = get_soup(self.link)
-        h3 = soup.select(".desc h3")[0].text.strip()
-        self._year = int(re.findall(r'\(\d\d\d\d\)$', h3)[-1][1:-1])
-        
-        tds = soup.select(".tbl_basic3 tr td")
-        
-        self._title_en = tds[0].text.strip()
-        self._director = tds[1].text.strip()
-        
         try:
-            soup = get_soup(CINE + tds[1].a['href'])
+            soup = get_soup(self.link)
+            h3 = soup.select(".desc h3")[0].text.strip()
+            self._year = int(re.findall(r'\(\d\d\d\d\)$', h3)[-1][1:-1])
+
+            tds = soup.select(".tbl_basic3 tr td")
+
+            self._title_en = tds[0].text.strip()
+            self._director = tds[1].text.strip()
+
+            try:
+                soup = get_soup(CINE + tds[1].a['href'])
+            except:
+                soup = get_soup(CINE + tds[2].a['href'])
+
+            try:
+                self._director_en = re.findall(r'\(.*\)$', soup.select("span.name")[0].text.strip())[-1][1:-1]
+            except:
+                return False
+            try:
+                self._time = time.strptime(tds[-1].text.strip(), "%Y-%M-%d")
+            except:
+                return False
         except:
-            soup = get_soup(CINE + tds[2].a['href'])
-        self._director_en = re.findall(r'\(.*\)$', soup.select("span.name")[0].text.strip())[-1][1:-1]
-        
-        self._time = time.strptime(tds[-1].text.strip(), "%Y-%M-%d")
-        
+            return False
+            
     def get_naver(self):
         query = urllib.urlencode({'q' : self.title.encode('utf-8')})
         
@@ -113,7 +122,19 @@ class Movie(object):
             ans = j['items'][0]
         
         if not ans:
-            raise(" [!] NAVER Movie not found")
+            if self.mid == 27710:
+                self._naver_mid = 71424
+                return
+            elif self.mid == 26369:
+                self._naver_mid = 49475
+                return
+            elif self.mid == 23105:
+                self._naver_mid = 64920
+                return
+            elif self.mid == 3684:
+                self._naver_mid = 3470449
+                return
+            raise Exception(" [!] NAVER Movie not found : %s" % self.mid)
             
         self._naver_mid = ans[0][-2][0]
             
@@ -178,6 +199,8 @@ class Movie(object):
                 return
             else:
                 raise Exception (" [!] IMDB Movie not found : %s" % len(self._imdb_candidates))
+        elif len(movies) == 0:
+            return False
         else:
             ans = movies[0]
         

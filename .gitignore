@@ -1,4 +1,7 @@
 # data
+log.txt
+*.jsonlines
+*.pkl
 *.json
 *.tsv
 *.csv

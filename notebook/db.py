@@ -5,10 +5,15 @@ from sqlalchemy import Column, Date, Integer, String, Text, Boolean, Date
 
 import logging
 
-logging.basicConfig()
-logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+#logging.basicConfig()
+#logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
-engine = create_engine('sqlite:///movie.db', echo=True)
+import logging
+logger = logging.getLogger()
+logger.disabled = True
+
+engine = create_engine('sqlite:///movie.db', echo=False)
+#engine = create_engine('mysql://root:@localhost/carpedm20')
 
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
@@ -21,14 +26,18 @@ class Movie_DB(Base):
     __tablename__ = 'movie'
     mid = Column(Integer, primary_key=True)
     year = Column(String(50))
+    title = Column(String(100))
+    title_en = Column(String(100))
     time = Column(Date)
     director = Column(String(100))
     director_en = Column(String(100))
     naver_mid = Column(Integer, unique=True)
     imdb_mid = Column(Integer)
 
-    def __init__(self, mid, year, time, director, director_en, naver_mid, imdb_mid):
+    def __init__(self, mid, title, title_en, year, time, director, director_en, naver_mid, imdb_mid):
         self.mid = mid
+        self.title = title
+        self.title_en = title_en
         self.year = year
         self.time = time
         self.director = director

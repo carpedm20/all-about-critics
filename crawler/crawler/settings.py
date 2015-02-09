@@ -13,7 +13,8 @@ BOT_NAME = 'crawler'
 SPIDER_MODULES = ['crawler.spiders']
 NEWSPIDER_MODULE = 'crawler.spiders'
 
-DOWNLOAD_DELAY = 1
+DOWNLOAD_DELAY = 0
+DOWNLOAD_TIMEOUT = 10
 
 FEED_EXPORTERS = {
     'jsonlines': 'scrapy.contrib.exporter.JsonLinesItemExporter',
