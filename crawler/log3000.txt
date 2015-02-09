@@ -1,0 +1,33 @@
+2015-02-09 23:39:57+0900 [scrapy] INFO: Scrapy 0.24.4 started (bot: crawler)
+2015-02-09 23:39:57+0900 [scrapy] INFO: Optional features available: ssl, http11, boto, django
+2015-02-09 23:39:57+0900 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'crawler.spiders', 'FEED_URI': 'critic-new-3000.jsonlines', 'SPIDER_MODULES': ['crawler.spiders'], 'BOT_NAME': 'crawler', 'DOWNLOAD_TIMEOUT': 10, 'LOG_FILE': 'log3000.txt'}
+2015-02-09 23:39:57+0900 [scrapy] INFO: Enabled extensions: FeedExporter, LogStats, TelnetConsole, CloseSpider, WebService, CoreStats, SpiderState
+2015-02-09 23:39:58+0900 [scrapy] INFO: Enabled downloader middlewares: HttpAuthMiddleware, DownloadTimeoutMiddleware, UserAgentMiddleware, RetryMiddleware, DefaultHeadersMiddleware, MetaRefreshMiddleware, HttpCompressionMiddleware, RedirectMiddleware, CookiesMiddleware, ChunkedTransferMiddleware, DownloaderStats
+2015-02-09 23:39:58+0900 [scrapy] INFO: Enabled spider middlewares: HttpErrorMiddleware, OffsiteMiddleware, RefererMiddleware, UrlLengthMiddleware, DepthMiddleware
+2015-02-09 23:39:58+0900 [scrapy] INFO: Enabled item pipelines: 
+2015-02-09 23:39:58+0900 [cine] INFO: Spider opened
+2015-02-09 23:39:58+0900 [cine] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2015-02-09 23:39:58+0900 [scrapy] DEBUG: Telnet console listening on 127.0.0.1:6026
+2015-02-09 23:39:58+0900 [scrapy] DEBUG: Web service listening on 127.0.0.1:6083
+2015-02-09 23:40:00+0900 [cine] DEBUG: Crawled (200) <GET http://www.cine21.com/movie/info/movie_id/19136> (referer: None)
+2015-02-09 23:40:49+0900 [cine] DEBUG: Scraped from <200 http://www.cine21.com/movie/info/movie_id/19136>
+	{'director': u'\uc774\uc5b8\ud76c',
+	 'director_en': u'Lee Eonhee',
+	 'imdb_candidates': [{'imdb_id': u'tt1201143',
+	                      'title': u'Love Exposure',
+	                      'year': u'2007'}],
+	 'imdb_mid': u'tt1201143',
+	 'mid': 19136,
+	 'naver_mid': u'45491',
+	 'time': '2007-01-18',
+	 'title': u'\uc5b4\uae68\ub108\uba38\uc758 \uc5f0\uc778',
+	 'title_en': u'Love Exposure',
+	 'year': 2007}
+2015-02-09 23:40:49+0900 [cine] DEBUG: Crawled (200) <GET http://www.cine21.com/movie/info/movie_id/19140> (referer: None)
+2015-02-09 23:40:49+0900 [cine] DEBUG: Crawled (200) <GET http://www.cine21.com/movie/info/movie_id/21435> (referer: None)
+2015-02-09 23:40:49+0900 [cine] DEBUG: Crawled (200) <GET http://www.cine21.com/movie/info/movie_id/20917> (referer: None)
+2015-02-09 23:40:49+0900 [cine] DEBUG: Crawled (200) <GET http://www.cine21.com/movie/info/movie_id/21748> (referer: None)
+2015-02-09 23:40:49+0900 [cine] DEBUG: Crawled (200) <GET http://www.cine21.com/movie/info/movie_id/21424> (referer: None)
+2015-02-09 23:40:49+0900 [cine] DEBUG: Crawled (200) <GET http://www.cine21.com/movie/info/movie_id/21296> (referer: None)
+2015-02-09 23:40:49+0900 [cine] DEBUG: Crawled (200) <GET http://www.cine21.com/movie/info/movie_id/18471> (referer: None)
+2015-02-09 23:40:49+0900 [cine] DEBUG: Retrying <GET http://www.cine21.com/movie/info/movie_id/19082> (failed 1 times): User timeout caused connection failure: Getting http://www.cine21.com/movie/info/movie_id/19082 took longer than 10 seconds..
