@@ -28,6 +28,56 @@ NAVER_AUTO = "http://auto.movie.naver.com/ac?q_enc=UTF-8&st=1&r_lt=1&n_ext=1&t_k
 
 movie_dict = {}
 
+try:
+    from urllib.parse import urlencode
+    import html.parser as htmlparser
+except ImportError:
+    from urllib import urlencode
+    import HTMLParser as htmlparser
+import requests
+
+def find_by_title(title, country):
+    default_find_by_title_params = {
+        'json': '1',
+        'nr': 1,
+        'tt': 'on',
+        'q': title,
+        'countries': country,
+    }
+    query_params = urlencode(default_find_by_title_params)
+    results = requests.get(
+        ('http://www.imdb.com/xml/find?{0}').format(query_params)
+    )
+    print results.text
+
+    keys = (
+        'title_popular',
+        'title_exact',
+        'title_approx',
+        'title_substring'
+    )
+    title_results = []
+
+    html_unescaped = htmlparser.HTMLParser().unescape
+
+    # Loop through all results and build a list with popular matches first
+    for key in keys:
+        if key in results:
+            for r in results[key]:
+                year = None
+                year_match = re.search(r'(\d{4})', r['title_description'])
+                if year_match:
+                    year = year_match.group(0)
+
+                title_match = {
+                    'title': html_unescaped(r['title']),
+                    'year': year,
+                    'imdb_id': r['id']
+                }
+                title_results.append(title_match)
+
+    return title_results
+
 from difflib import SequenceMatcher as sm
 def is_same_name(a,b):
     for (x,y) in [(a,b),(b,a)]:
