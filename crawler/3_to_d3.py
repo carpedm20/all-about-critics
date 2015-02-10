@@ -45,4 +45,4 @@ for critic in critics:
 critics = pd.DataFrame(new_critics, columns=['cid','mid','rating','text'])
 critics = critics[critics.mid.isin(data.cine)]
 
-data.to_csv('critics.csv', sep=',', index=False, encoding="utf-8")
+critics.to_csv('critics.csv', sep=',', index=False, encoding="utf-8")
