@@ -3,6 +3,7 @@ import scrapy
 from scrapy import signals
 from scrapy.xlib.pydispatch import dispatcher
 
+import re
 import json
 
 NAVER_URL = "http://movie.naver.com/movie/bi/mi/basic.nhn?code="
@@ -24,37 +25,53 @@ class CompactSpider(scrapy.Spider):
     def parse(self, response):
         data = json.loads(open('compact.json').read())
     
-        for d in data:
+        for d in data[:20]:
             mid = d['mid']
-            yield scrapy.Request(CINE_URL + mid,
-                                 callback=self.parse,
+            self.movie_dict[mid] = {}
+            yield scrapy.Request(CINE_URL + str(mid),
+                                 callback=self.parse_cine,
                                  meta={'mid': mid})
-            yield scrapy.Request(IMDB_URL + d['imdb_mid'],
-                                 callback=self.parse,
+            yield scrapy.Request(IMDB_URL + str(d['imdb_mid']),
+                                 callback=self.parse_imdb,
                                  meta={'mid': mid})
-            yield scrapy.Request(NAVER_URL + d['naver_mid'],
-                                 callback=self.parse,
+            yield scrapy.Request(NAVER_URL + str(d['naver_mid']),
+                                 callback=self.parse_naver,
                                  meta={'mid': mid})
 
     def parse_cine(self, response):
         movie = self.movie_dict[response.meta['mid']]
 
-        response.xpath("//span[@class='spc_score']/em/")[0]
+        scores = response.xpath("//div[@class='number']/text()").extract()
+        movie['cine_user'] = float(scores[0].strip())
+        movie['cine_critic'] = float(scores[1].strip())
+
+        scrapy.log.msg(movie)
 
     def parse_imdb(self, response):
         movie = self.movie_dict[response.meta['mid']]
 
-        movie['imdb_user'] = float(response.xpath("//span[@itemprop='ratingValue']/text()")[0].extract())
-        count = response.xpath("//span[@itemprop='ratingCount']/text()")[0].extract()
-        movie['imdb_user_count'] = int(re.sub("[^\d]", "", count))
+        try:
+            movie['imdb_user'] = float(response.xpath("//span[@itemprop='ratingValue']/text()")[0].extract())
+            count = response.xpath("//span[@itemprop='ratingCount']/text()")[0].extract()
+            movie['imdb_user_count'] = int(re.sub("[^\d]", "", count))
+        except:
+            movie['imdb_user'] = -1
+            movie['imdb_user_count'] = -1
+
+        for elem in response.xpath("//div[@class='star-box-details']/a"):
+            href = elem.xpath("@href")[0].extract()
+            if 'criticreviews' in href:
+                movie['metacritic'] = elem.xpath("text()").extract()
+
+        scrapy.log.msg(movie)
 
     def parse_naver(self, response):
         movie = self.movie_dict[response.meta['mid']]
 
-        count = response.xpath("//span[@class='user_count']/em")[0]
-        movie['naver_user_count'] = int(re.sub("[^\d]", "", count))
-        count = response.xpath("//span[@class='user_count']/em")[1]
-        movie['naver_critic_count'] = int(re.sub("[^\d]", "", count))
+        counts = response.xpath("//span[@class='user_count']/em/text()").extract()
+
+        movie['naver_user_count'] = int(re.sub("[^\d]", "", counts[0]))
+        movie['naver_critic_count'] = int(re.sub("[^\d]", "", counts[1]))
 
         try:
             style = response.xpath("//a[@class='spc']/div[@class='star_score']/span/span/@style")[0].extract()
@@ -79,5 +96,8 @@ class CompactSpider(scrapy.Spider):
             elif 'nation=' in info:
                 movie['nation'] = info[3][-2:]
 
+        scrapy.log.msg(movie)
+
     def spider_closed(self, spider):
-        pass
+        with open('result.json','w') as f:
+            json.dump(self.movie_dict, f)
