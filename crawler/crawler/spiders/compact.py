@@ -25,7 +25,7 @@ class CompactSpider(scrapy.Spider):
     def parse(self, response):
         data = json.loads(open('compact.json').read())
     
-        for d in data[:20]:
+        for d in data:
             mid = d['mid']
             self.movie_dict[mid] = {}
             yield scrapy.Request(CINE_URL + str(mid),
