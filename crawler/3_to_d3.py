@@ -20,7 +20,7 @@ for key, value in data.items():
     new_data.append(value)
 
 data = pd.DataFrame(new_data)
-data = data[data.metacritic.notnull()]
+#data = data[data.metacritic.notnull()]
 
 data.poster = data.poster.str.replace('http://movie2.phinf.naver.net/','')
 data.poster = data.poster.str.replace('http://movie.phinf.naver.net/','')
@@ -43,6 +43,6 @@ for critic in critics:
             new_critics.append((cid, review.movie[0].mid, review.rating, review.text))
 
 critics = pd.DataFrame(new_critics, columns=['cid','mid','rating','text'])
-critics = critics[critics.mid.isin(data.cine)]
+#critics = critics[critics.mid.isin(data.cine)]
 
 critics.to_csv('critics.csv', sep=',', index=False, encoding="utf-8")
