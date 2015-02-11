@@ -1,4 +1,15 @@
 
+/***************
+ * d3.js
+ ***************/
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
 .tooltip {
   position: absolute;
   width: 200px;
@@ -6,11 +17,12 @@
   pointer-events: none;
 }
 
+/****************
+ * html
+ ****************/
+
 .content-intro {
   padding: 1em 4em 1em 4em;
-}
-
-.intro-image {
 }
 
 .max-height-img {

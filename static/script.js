@@ -1,127 +1,122 @@
 $(document).ready(function() {
     var highestCol = Math.min($('#intro-img1').height(),$('#intro-img2').height());
-    $('.intro-img-container').height(highestCol);
+    $('.intro-img-container1').height(highestCol);
+    highestCol = Math.min($('#intro-img3').height(),$('#intro-img4').height());
+    $('.intro-img-container2').height(highestCol);
 });
 
-var margin = {top: 30, right: 20, bottom: 30, left: 50},
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 600 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
- 
-// Parse the date / time
-var parseDate = d3.time.format("%d-%b-%y").parse;
- 
-// Set the ranges
-var x = d3.time.scale().range([0, width]);
-var y = d3.scale.linear().range([height, 0]);
- 
-// Define the axes
-var xAxis = d3.svg.axis().scale(x)
-    .orient("bottom").ticks(5);
- 
-var yAxis = d3.svg.axis().scale(y)
-    .orient("left").ticks(5);
- 
-var valueline = d3.svg.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.close); });
-    
-var svg = d3.select("#graph")
-    .append("svg")
+
+var Graph = function(data, arg1, arg2) {
+    var arg1 = arg1;
+    var arg2 = arg2;
+
+    var get_label = function(param) {
+        if (param == 'nu') return 'Naver user';
+        else if (param == 'nc') return 'Naver critic';
+        else if (param == 'cu') return 'Cine21 user';
+        else if (param == 'cc') return 'Cine21 critic';
+        else if (param == 'iu') return 'IMDb user';
+        else if (param == 'ic') return 'IMDb critic';
+    }
+
+    var get_data = function(d, param) {
+        if (param == 'nu') return d.naver_user / 10;
+        else if (param == 'nc') return d.naver_critic / 10;
+        else if (param == 'cu') return d.cine_user;
+        else if (param == 'cc') return d.cine_critic;
+        else if (param == 'iu') return d.imdb_user;
+        else if (param == 'ic') return d.metacritic * 10;
+    }
+
+    var xValue = function(d) { return get_data(d, arg1); },
+        xScale = d3.scale.linear().range([0, width]),
+        xMap = function(d) { return xScale(xValue(d));},
+        xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+
+    var yValue = function(d) { return get_data(d, arg2);},
+        yScale = d3.scale.linear().range([height, 0]),
+        yMap = function(d) { return yScale(yValue(d));},
+        yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+    var cValue = function(d) {
+            var d1 = get_data(d, arg1);
+            var d2 = get_data(d, arg2);
+            return Math.floor(Math.abs(d1-d2));
+        },
+        color = d3.scale.category10();
+
+    var svg = d3.select("#graph").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-    .append("g")
+        .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    var tooltip = d3.select("#graph").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+    xScale.domain([0, 10]);
+    yScale.domain([0, 10]);
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        .append("text")
+        .attr("class", "label")
+        .attr("x", width)
+        .attr("y", -6)
+        .style("text-anchor", "end")
+        .text(get_label(arg1));
+
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+        .append("text")
+        .attr("class", "label")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text(get_label(arg2));
+
+    svg.selectAll(".dot")
+        .data(data)
+        .enter().append("circle")
+        .attr("class", "dot")
+        .attr("r", 5.5)
+        .attr("cx", xMap)
+        .attr("cy", yMap)
+        .attr('opacity', 0.5)
+        .style("fill", function(d) { return color(cValue(d));}) 
+        .attr("visibility", function(d,i){
+            if(get_data(d, arg1) <= 0 || get_data(d, arg2) <= 0 ) return "hidden";
+        })
+    .on("mouseover", function(d) {
+        tooltip.transition()
+        .duration(100)
+        .style("opacity", 1.0);
+    tooltip.html(d.title + "<br/> (" + xValue(d) 
+        + ", " + yValue(d) + ")")
+        .style("left", (d3.event.pageX + 5) + "px")
+        .style("top", (d3.event.pageY - 28 - $(".splash-container").height()) + "px");
+    })
+    .on("mouseout", function(d) {
+        tooltip.transition()
+        .duration(800)
+        .style("opacity", 0);
+    });
+};
+
 var movies;
-
-var margin = {top: 30, right: 20, bottom: 10, left: 50},
-    width = 600 - margin.left - margin.right,
-    height = 600 - margin.top - margin.bottom;
- 
-// Parse the date / time
-var parseDate = d3.time.format("%d-%b-%y").parse;
- 
-// Set the ranges
-var x = d3.time.scale().range([0, width]);
-var y = d3.scale.linear().range([height, 0]);
- 
-// Define the axes
-var xAxis = d3.svg.axis().scale(x)
-    .orient("bottom").ticks(5);
- 
-var yAxis = d3.svg.axis().scale(y)
-    .orient("left").ticks(5);
-
-var xValue = function(d) { return d.naver_user;}, // data -> value
-    xScale = d3.scale.linear().range([0, width]), // value -> display
-    xMap = function(d) { return xScale(xValue(d));}, // data -> display
-    xAxis = d3.svg.axis().scale(xScale).orient("bottom");
-
-// setup y
-var yValue = function(d) { return d.naver_critic;}, // data -> value
-    yScale = d3.scale.linear().range([height, 0]), // value -> display
-    yMap = function(d) { return yScale(yValue(d));}, // data -> display
-    yAxis = d3.svg.axis().scale(yScale).orient("left");
-
-var tooltip = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
-
 d3.csv("/carpedm20/critic/static/movie.csv", function(error, data) {
     movies = data;
 
-    pop_list = [];
-    for (var idx in movies) {
-        var movie = movies[idx];
-
-        movie.time = parseDate(movie.time);
-
-        if (movie.naver_user == -1 || movie.naver_critic == -1) {
-            //console.log(idx);
-            pop_list.push(idx);
-        }
-    }
-
-    for (var idx in pop_list) {
-        movies.pop(pop_list[idx]);
-    }
-
-    xScale.domain(d3.extent(movies, function(d) { return d.naver_user; }));
-    yScale.domain([0, d3.max(movies, function(d) { return d.naver_critic; })]);
- 
-    // Add the valueline path.
-    svg.selectAll(".dot")
-       .data(movies)
-      .enter().append("circle")
-       .attr("class", "dot")
-       .attr("r", 3.5)
-       .attr("cx", xMap)
-       .attr("cy", yMap)
-       .style("fill", function(d) {
-          return 'black';
-       })
-      .on("mouseover", function(d) {
-          tooltip.transition()
-               .duration(200)
-               .style("opacity", .9);
-          tooltip.html(d.title + "<br/> (" + xValue(d) 
-            + ", " + yValue(d) + ")")
-               .style("left", (d3.event.pageX + 5) + "px")
-               .style("top", (d3.event.pageY - 28) + "px");
-      })
-      .on("click", function(d) {
-         window.open('http://movie.naver.com/movie/bi/mi/basic.nhn?code='+d.naver,'_blank');
-      });
- 
-    // Add the X Axis
-    svg.append("g")     
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
- 
-    // Add the Y Axis
-    svg.append("g")     
-        .attr("class", "y axis")
-        .call(yAxis);
- 
+    Graph(data, 'nu', 'nc');
+    Graph(data, 'cu', 'cc');
+    Graph(data, 'iu', 'ic');
+    Graph(data, 'nc', 'ic');
 });
