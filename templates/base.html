@@ -1,14 +1,16 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
-  <meta name="description" content="">
+  <title>All about Critics</title>
+  <meta name="keywords" content="all about critics,carpedm20,movie,visualization" />
+  <meta name="description" content="A data visualization of movie critics" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <!-- Place favicon.ico in the root directory -->
+  <meta property="og:title" content="All about Critics" />
+  <meta property="og:url" content="http://pail.unist.ac.kr/carpedm20/critics/"/>
+  <meta property="og:image" content="https://raw.githubusercontent.com/carpedm20/voxoffice/master/static/logo.png" />
+  <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
 
   <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 
@@ -31,7 +33,34 @@
 <![endif]-->
 </head>
 <body>
-  {% block menu %}{% endblock %}
+  <div class="header">
+    <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+      <a class="pure-menu-heading" href="">carpedm20</a>
+
+      <ul>
+        <li class="pure-menu-selected"><a href="#">All about Critics</a></li>
+        <li><a href="http://pail.unist.ac.kr/carpedm20/vox/">VoxOffice</a></li>
+        <li><a href="http://pail.unist.ac.kr/carpedm20/vox/">VoxMusic</a></li>
+        <li><a href="http://pail.unist.ac.kr:8080/">ReviewDuk</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="splash-container">
+    <div class="splash">
+      <h1 class="splash-head">All about critics</h1>
+      <p class="splash-subhead">
+        A Data Visualization of Film Critics.<br/>
+        "Do Movie Critics Matter?"
+      </p>
+      <p>
+        <a href="https://github.com/carpedm20/all-about-critics" class="pure-button pure-button-primary" target="_blank">
+          <i class="fa fa-github"></i>
+          Github
+        </a>
+      </p>
+    </div>
+  </div>
 
   {% block content %}{% endblock %}
 
