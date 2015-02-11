@@ -1,7 +1,7 @@
 All about critics
 =================
 
-A Data Visualization of Korean movie critics.
+A Data Visualization of Korean movie critics. [link](http://pail.unist.ac.kr/carpedm20/critic/)
 
 
 Why?
