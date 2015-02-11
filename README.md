@@ -11,7 +11,7 @@ Tons of new movies are released every year and the accumulated number of film re
  
 There mgiht be no doubt that **review** and **star ratings** are two of the most popular qualites and this can be proved by looking at information page of [NAVER movie](http://movie.naver.com/) that star ratings from real audience, critic and user are located right bellow the title of a movie. 
 
-![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/naver.png)
+![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/naver2.png)
  
 In addition, one of the well-knwon movie recommendation service, [Watcha](https://watcha.net/), uses star rating for its core recommendation system.
 
