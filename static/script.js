@@ -1,3 +1,8 @@
+$(document).ready(function() {
+    var highestCol = Math.min($('#intro-img1').height(),$('#intro-img2').height());
+    $('.intro-img-container').height(highestCol);
+});
+
 var margin = {top: 30, right: 20, bottom: 30, left: 50},
     width = 600 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
@@ -72,7 +77,7 @@ d3.csv("/carpedm20/critic/static/movie.csv", function(error, data) {
         movie.time = parseDate(movie.time);
 
         if (movie.naver_user == -1 || movie.naver_critic == -1) {
-            console.log(idx);
+            //console.log(idx);
             pop_list.push(idx);
         }
     }
