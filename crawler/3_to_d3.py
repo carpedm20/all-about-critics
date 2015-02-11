@@ -45,4 +45,27 @@ for critic in critics:
 critics = pd.DataFrame(new_critics, columns=['cid','mid','rating','text'])
 #critics = critics[critics.mid.isin(data.cine)]
 
-critics.to_csv('critics.csv', sep=',', index=False, encoding="utf-8")
+for i in movie_dict:
+    del movie_dict[i]['year']
+    try:
+        del movie_dict[i]['imdb_candidates']
+    except:
+        pass
+
+movie_dt = pd.DataFrame(movie_dict)
+
+for movie in movies:
+    del movie['director_en']
+    del movie['title_en']
+    try:
+        del movie['imdb_candidates']
+    except:
+        pass
+
+tmp = pd.DataFrame.from_dict(movies)
+tmp = tmp.set_index('mid')
+
+#critics = critics.join(tmp, how='outer', on='mid')
+#critics = critics[critics.year.notnull()].drop_duplicates()
+
+#critics.to_csv('critics.csv', sep=',', index=False, encoding="utf-8")
