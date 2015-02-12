@@ -48,7 +48,7 @@ Why?
 ----
 
 ![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/demo1.png)
-![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/demo2.png)
+![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/demo2.PNG)
 
 Acknowledgement
 ---------------
