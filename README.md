@@ -44,8 +44,8 @@ This is where I started this project. As a movie fan, I statistically compared t
 Now, enjoy yourself :)
 
 
-Why?
-----
+Screenshot
+----------
 
 ![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/demo1.png)
 ![alt_tag](https://raw.githubusercontent.com/carpedm20/all-about-critics/master/contents/demo2.PNG)
