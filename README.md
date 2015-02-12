@@ -43,6 +43,8 @@ This is where I started this project. As a movie fan, I statistically compared t
 
 Now, enjoy yourself :)
 
+[link](http://pail.unist.ac.kr/carpedm20/critic/)
+
 
 Screenshot
 ----------
