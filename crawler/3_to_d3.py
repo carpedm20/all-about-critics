@@ -63,9 +63,12 @@ for movie in movies:
         pass
 
 tmp = pd.DataFrame.from_dict(movies)
-tmp = tmp.set_index('mid')
+del tmp['year']
+ans = critics.merge(tmp, on='mid', how='inner').drop_duplicates()
+
+#tmp = tmp.set_index('mid')
 
 #critics = critics.join(tmp, how='outer', on='mid')
 #critics = critics[critics.year.notnull()].drop_duplicates()
 
-#critics.to_csv('critics.csv', sep=',', index=False, encoding="utf-8")
+ans.to_csv('critics.csv', sep=',', index=False, encoding="utf-8")
